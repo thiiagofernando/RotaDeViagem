@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RotaDeViagemApi.Data;
 using RotaDeViagemApi.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<RotaDbContext>(options =>
@@ -13,6 +12,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .WithExposedHeaders("Content-Type");
+        });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -22,7 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAngularApp");
 app.UseAuthorization();
 
 app.MapControllers();

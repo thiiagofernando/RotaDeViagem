@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>{{data ? 'Editar' : 'Nova'}} Rota</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Origem</mat-label>
+      <input matInput formControlName="origem" placeholder="Ex: GRU">
+      <mat-error *ngIf="form.get('origem')?.hasError('required')">
+        Origem é obrigatória
+      </mat-error>
+      <mat-error *ngIf="form.get('origem')?.hasError('minlength') || form.get('origem')?.hasError('maxLength')">
+        Origem deve ter exatamente 3 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Destino</mat-label>
+      <input matInput formControlName="destino" placeholder="Ex: CDG">
+      <mat-error *ngIf="form.get('destino')?.hasError('required')">
+        Destino é obrigatório
+      </mat-error>
+      <mat-error *ngIf="form.get('destino')?.hasError('minlength') || form.get('destino')?.hasError('maxLength')">
+        Destino deve ter exatamente 3 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Valor</mat-label>
+      <input matInput type="number" formControlName="valor" placeholder="Ex: 100">
+      <mat-error *ngIf="form.get('valor')?.hasError('required')">
+        Valor é obrigatório
+      </mat-error>
+      <mat-error *ngIf="form.get('valor')?.hasError('min')">
+        Valor deve ser maior que zero
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,20 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  button {
+    align-self: flex-start;
+  }
+  
+  .resultado-card {
+    margin-top: 24px;
+    background-color: #e8f5e9;
+  }
+  
+  mat-progress-bar {
+    margin-top: 16px;
+  }
+  

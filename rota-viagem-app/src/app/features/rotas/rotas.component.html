@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Gerenciamento de Rotas</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="openRotaDialog()">
+          Nova Rota
+        </button>
+      </div>
+  
+      <table mat-table [dataSource]="rotas" class="mat-elevation-z8">
+        <ng-container matColumnDef="origem">
+          <th mat-header-cell *matHeaderCellDef> Origem </th>
+          <td mat-cell *matCellDef="let rota"> {{rota.origem}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="destino">
+          <th mat-header-cell *matHeaderCellDef> Destino </th>
+          <td mat-cell *matCellDef="let rota"> {{rota.destino}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="valor">
+          <th mat-header-cell *matHeaderCellDef> Valor </th>
+          <td mat-cell *matCellDef="let rota"> {{rota.valor | currency}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef> Ações </th>
+          <td mat-cell *matCellDef="let rota">
+            <button mat-icon-button (click)="openRotaDialog(rota)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteRota(rota.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  

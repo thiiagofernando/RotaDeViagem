@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Consulta de Melhor Rota</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Origem</mat-label>
+          <input matInput formControlName="origem" placeholder="Ex: GRU">
+          <mat-error *ngIf="form.get('origem')?.hasError('required')">
+            Origem é obrigatória
+          </mat-error>
+          <mat-error *ngIf="form.get('origem')?.hasError('minlength') || form.get('origem')?.hasError('maxlength')">
+            Origem deve ter exatamente 3 caracteres
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Destino</mat-label>
+          <input matInput formControlName="destino" placeholder="Ex: CDG">
+          <mat-error *ngIf="form.get('destino')?.hasError('required')">
+            Destino é obrigatório
+          </mat-error>
+          <mat-error *ngIf="form.get('destino')?.hasError('minlength') || form.get('destino')?.hasError('maxlength')">
+            Destino deve ter exatamente 3 caracteres
+          </mat-error>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid || isLoading">
+          <mat-icon>search</mat-icon>
+          Consultar Melhor Rota
+        </button>
+      </form>
+  
+      <mat-card *ngIf="resultado" class="resultado-card">
+        <mat-card-header>
+          <mat-card-title>Melhor Rota Encontrada</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Trajeto:</strong> {{ resultado.trajeto.join(' -> ') }}</p>
+          <p><strong>Custo Total:</strong> {{ resultado.custoTotal | currency }}</p>
+        </mat-card-content>
+      </mat-card>
+  
+    </mat-card-content>
+  </mat-card>
+  
